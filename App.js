@@ -5,14 +5,12 @@ import {RestaurantsScreen} from './src/features/restaurants/screens/restaurants.
 
 import {theme} from './src/infrastructure/theme';
 
-// StatusBar.currentHeight - for Android
+// statusBar.currentHeight - for Android
 
-const App = () => {
-  return (
-    <ThemeProvider theme={theme}>
-      <RestaurantsScreen />
-    </ThemeProvider>
-  );
-};
+const App = () => (
+  <ThemeProvider theme={theme}>
+    <RestaurantsScreen />
+  </ThemeProvider>
+);
 
 export default App;
