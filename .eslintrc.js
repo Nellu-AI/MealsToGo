@@ -19,6 +19,7 @@ module.exports = {
   },
   plugins: ['react', 'react-native'],
   rules: {
+    'object-curly-newline': 'off',
     'react/jsx-filename-extension': 'off',
     'import/prefer-default-export': 'off',
     'import/no-extraneous-dependencies': 'off',
@@ -191,7 +192,6 @@ module.exports = {
     'no-warning-comments': 'error',
     'no-whitespace-before-property': 'error',
     'nonblock-statement-body-position': 'error',
-    'object-curly-newline': 'error',
     'object-curly-spacing': ['error', 'never'],
     'object-shorthand': 'error',
     'one-var': 'off',
