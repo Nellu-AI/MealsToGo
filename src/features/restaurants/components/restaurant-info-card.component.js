@@ -11,8 +11,8 @@ import {
   SectionEnd,
   Rating,
   Info,
-  RestautantCard,
-  RestautantCardCover,
+  RestaurantCard,
+  RestaurantCardCover,
   Address,
 } from './restaurant-info-card.styles';
 
@@ -32,16 +32,20 @@ export const RestaurantInfoCard = ({restautant = {}}) => {
   const ratingArray = Array.from(new Array(Math.floor(rating)));
   console.log(ratingArray);
   return (
-    <RestautantCard elevation={5}>
-      <RestautantCardCover key={name} source={{uri: photos[0]}} />
+    <RestaurantCard elevation={5}>
+      <RestaurantCardCover key={name} source={{uri: photos[0]}} />
       <Info>
         <Text variant="label">{name}</Text>
 
         <Section>
           <Rating>
-            {ratingArray.map((el, indx) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <SvgXml key={indx} xml={star} width={20} height={20} />
+            {ratingArray.map((el, indx, arr) => (
+              <SvgXml
+                key={`el-${arr.length + indx}`}
+                xml={star}
+                width={20}
+                height={20}
+              />
             ))}
           </Rating>
 
@@ -62,6 +66,6 @@ export const RestaurantInfoCard = ({restautant = {}}) => {
 
         <Address>{address}</Address>
       </Info>
-    </RestautantCard>
+    </RestaurantCard>
   );
 };

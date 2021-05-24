@@ -19,6 +19,7 @@ module.exports = {
   },
   plugins: ['react', 'react-native'],
   rules: {
+    'no-use-before-define': 'off',
     'object-curly-newline': 'off',
     'react/jsx-filename-extension': 'off',
     'import/prefer-default-export': 'off',
@@ -179,7 +180,6 @@ module.exports = {
     'no-unreachable-loop': 'error',
     'no-unsafe-optional-chaining': 'error',
     'no-unused-expressions': 'error',
-    'no-use-before-define': 'error',
     'no-useless-backreference': 'error',
     'no-useless-call': 'error',
     'no-useless-computed-key': 'error',
