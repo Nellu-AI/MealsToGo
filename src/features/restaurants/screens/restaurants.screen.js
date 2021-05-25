@@ -1,11 +1,12 @@
 import React, {useContext} from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import styled from 'styled-components/native';
-import {FlatList, StyleSheet} from 'react-native';
+import {FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 
-import {RestaurantInfoCard} from '../components/restaurant-info-card.component';
+import RestaurantInfoCard from '../components/restaurant-info-card.component';
 import {SafeArea} from '../../../components/safeArea/safe-area.component';
-import {Search} from '../components/search.component';
+import Search from '../components/search.component';
 import {RestaurantsContext} from '../../../services/restaurants/restaurants.context';
 
 const LoaderWrapper = styled.View`
@@ -17,7 +18,8 @@ const LoaderWrapper = styled.View`
 const Loading = styled(ActivityIndicator)`
   margin-left: -25px;
 `;
-export const RestaurantsScreen = () => {
+// eslint-disable-next-line import/prefer-default-export
+export const RestaurantsScreen = ({navigation}) => {
   const {isLoading, error, restaurants} = useContext(RestaurantsContext);
 
   return (
@@ -32,7 +34,14 @@ export const RestaurantsScreen = () => {
 
       <FlatList
         data={restaurants}
-        renderItem={({item}) => <RestaurantInfoCard restaurant={item} />}
+        renderItem={({item}) => (
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('RestaurantDetail', {restaurant: item})
+            }>
+            <RestaurantInfoCard restaurant={item} />
+          </TouchableOpacity>
+        )}
         keyExtractor={item => item.name}
         contentContainerStyle={styles.contentContainer}
       />

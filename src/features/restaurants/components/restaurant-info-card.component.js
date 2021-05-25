@@ -16,7 +16,7 @@ import {
   Address,
 } from './restaurant-info-card.styles';
 
-const RestaurantInfoCard = ({restaurant = {}}) => {
+const RestaurantInfoCard = ({restaurant}) => {
   const {
     name,
     icon,
