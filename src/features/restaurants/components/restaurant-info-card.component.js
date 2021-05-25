@@ -16,17 +16,15 @@ import {
   Address,
 } from './restaurant-info-card.styles';
 
-export const RestaurantInfoCard = ({restaurant = {}}) => {
+const RestaurantInfoCard = ({restaurant = {}}) => {
   const {
-    name = 'Some Restautant',
-    icon = 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png',
-    photos = [
-      'https://media-cdn.tripadvisor.com/media/photo-s/14/3e/86/54/caption.jpg',
-    ],
-    address = '100 some random street',
-    isOpenNow = true,
-    rating = 4,
-    isClosedTemporarily = true,
+    name,
+    icon,
+    photos,
+    address,
+    isOpenNow,
+    rating,
+    isClosedTemporarily,
     placeId,
   } = restaurant;
 
@@ -70,3 +68,19 @@ export const RestaurantInfoCard = ({restaurant = {}}) => {
     </RestaurantCard>
   );
 };
+
+RestaurantInfoCard.defaultProps = {
+  restaurant: {
+    name: 'Some Restautant',
+    icon: 'https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png',
+    photos: [
+      'https://media-cdn.tripadvisor.com/media/photo-s/14/3e/86/54/caption.jpg',
+    ],
+    address: '100 some random street',
+    isOpenNow: true,
+    rating: 4,
+    isClosedTemporarily: true,
+  },
+};
+
+export default RestaurantInfoCard;
