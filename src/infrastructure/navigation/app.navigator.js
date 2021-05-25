@@ -8,6 +8,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {RestaurantsNavigator} from './restaurants.navigator';
 import {SafeArea} from '../../components/safeArea/safe-area.component';
 
+import MapScreen from '../../features/map/screens/map.screen';
+
 const Tab = createBottomTabNavigator();
 
 const TAB_ICON = {
@@ -28,12 +30,6 @@ const createScreenOptions = ({route}) => {
     ),
   };
 };
-
-const MapScreen = () => (
-  <SafeArea>
-    <Text>Map!</Text>
-  </SafeArea>
-);
 
 const SettingsScreen = () => (
   <SafeArea>
