@@ -4,7 +4,7 @@ import {ScrollView} from 'react-native';
 import {List} from 'react-native-paper';
 
 import {SafeArea} from '../../../components/safeArea/safe-area.component';
-import RestaurantInfoCard from '../components/restaurant-info-card.component';
+import RestaurantInfoCard from '../components/restaurant-info/restaurant-card';
 
 const RestaurantDetail = ({route}) => {
   const [breakfastDrop, setBreakfastDrop] = useState(false);

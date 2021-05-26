@@ -3,9 +3,9 @@ import styled from 'styled-components/native';
 import {FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 
-import RestaurantInfoCard from '../components/restaurant-info-card.component';
+import RestaurantInfoCard from '../components/restaurant-info/restaurant-card';
 import {SafeArea} from '../../../components/safeArea/safe-area.component';
-import Search from '../components/search.component';
+import Search from '../components/search/search';
 import {RestaurantsContext} from '../../../services/restaurants/restaurants.context';
 import {FavouritesContext} from '../../../services/favourites/favourites.context';
 

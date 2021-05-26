@@ -1,11 +1,11 @@
 import React from 'react';
 import {SvgXml} from 'react-native-svg';
 
-import star from '../../../../assets/star';
-import open from '../../../../assets/open';
-import {Spacer} from '../../../components/spacer/spacerUpgrade.component';
-import {Text} from '../../../components/typography/text.component';
-import {Favourite} from './favourite-btn/favourite';
+import star from '../../../../../assets/star';
+import open from '../../../../../assets/open';
+import {Spacer} from '../../../../components/spacer/spacerUpgrade.component';
+import {Text} from '../../../../components/typography/text.component';
+import {Favourite} from '../favourite-btn/favourite';
 import {
   Icon,
   Section,
@@ -15,7 +15,7 @@ import {
   RestaurantCard,
   RestaurantCardCover,
   Address,
-} from './restaurant-info-card.styles';
+} from './styles';
 
 const RestaurantInfoCard = ({restaurant}) => {
   const {name, icon, photos, address, isOpenNow, rating, isClosedTemporarily, placeId} = restaurant;
