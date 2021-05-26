@@ -8,18 +8,21 @@ import {theme} from './src/infrastructure/theme';
 import {RestaurantsContextProvider} from './src/services/restaurants/restaurants.context';
 import {LocationContextProvider} from './src/services/location/location.context';
 import {FavouritesContextProvider} from './src/services/favourites/favourites.context';
+import {AuthContextProvider} from './src/services/authentication/auth.context';
 
 import Navigation from './src/infrastructure/navigation/index';
 
 const App = () => (
   <ThemeProvider theme={theme}>
-    <FavouritesContextProvider>
-      <LocationContextProvider>
-        <RestaurantsContextProvider>
-          <Navigation />
-        </RestaurantsContextProvider>
-      </LocationContextProvider>
-    </FavouritesContextProvider>
+    <AuthContextProvider>
+      <FavouritesContextProvider>
+        <LocationContextProvider>
+          <RestaurantsContextProvider>
+            <Navigation />
+          </RestaurantsContextProvider>
+        </LocationContextProvider>
+      </FavouritesContextProvider>
+    </AuthContextProvider>
   </ThemeProvider>
 );
 
