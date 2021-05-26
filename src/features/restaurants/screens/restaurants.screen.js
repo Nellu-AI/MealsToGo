@@ -1,5 +1,4 @@
-import React, {useContext} from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
+import React, {useContext, useState} from 'react';
 import styled from 'styled-components/native';
 import {FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
@@ -8,6 +7,9 @@ import RestaurantInfoCard from '../components/restaurant-info-card.component';
 import {SafeArea} from '../../../components/safeArea/safe-area.component';
 import Search from '../components/search.component';
 import {RestaurantsContext} from '../../../services/restaurants/restaurants.context';
+import {FavouritesContext} from '../../../services/favourites/favourites.context';
+
+import {FavouritesBar} from '../components/favourites-bar/favourites-bar';
 
 const LoaderWrapper = styled.View`
   position: absolute;
@@ -18,9 +20,15 @@ const LoaderWrapper = styled.View`
 const Loading = styled(ActivityIndicator)`
   margin-left: -25px;
 `;
-// eslint-disable-next-line import/prefer-default-export
 export const RestaurantsScreen = ({navigation}) => {
   const {isLoading, error, restaurants} = useContext(RestaurantsContext);
+  const {favourites} = useContext(FavouritesContext);
+
+  const [isToggled, setIsToggled] = useState(false);
+
+  const handleToggleFav = () => {
+    setIsToggled(!isToggled);
+  };
 
   return (
     <SafeArea>
@@ -30,15 +38,15 @@ export const RestaurantsScreen = ({navigation}) => {
         </LoaderWrapper>
       )}
 
-      <Search />
+      <Search onFavouritesToggle={handleToggleFav} isFavouritesToggled={isToggled} />
+
+      {isToggled && <FavouritesBar favourites={favourites} onNavigate={navigation.navigate} />}
 
       <FlatList
         data={restaurants}
         renderItem={({item}) => (
           <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('RestaurantDetail', {restaurant: item})
-            }>
+            onPress={() => navigation.navigate('RestaurantDetail', {restaurant: item})}>
             <RestaurantInfoCard restaurant={item} />
           </TouchableOpacity>
         )}

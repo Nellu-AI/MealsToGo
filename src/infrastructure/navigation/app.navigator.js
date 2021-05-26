@@ -22,11 +22,7 @@ const createScreenOptions = ({route}) => {
   const iconName = TAB_ICON[route.name];
   return {
     tabBarIcon: ({focused, color, size}) => (
-      <Ionicons
-        name={focused ? iconName : `${iconName}-outline`}
-        size={size}
-        color={color}
-      />
+      <Ionicons name={focused ? iconName : `${iconName}-outline`} size={size} color={color} />
     ),
   };
 };

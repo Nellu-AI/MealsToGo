@@ -8,7 +8,6 @@ import RestaurantDetail from '../../features/restaurants/screens/restaurantDetai
 
 const RestaurantStack = createStackNavigator();
 
-// eslint-disable-next-line import/prefer-default-export
 export const RestaurantsNavigator = () => {
   return (
     <RestaurantStack.Navigator
@@ -18,14 +17,8 @@ export const RestaurantsNavigator = () => {
           ...TransitionPresets.ModalPresentationIOS,
         }
       }>
-      <RestaurantStack.Screen
-        name="Restaurants"
-        component={RestaurantsScreen}
-      />
-      <RestaurantStack.Screen
-        name="RestaurantDetail"
-        component={RestaurantDetail}
-      />
+      <RestaurantStack.Screen name="Restaurants" component={RestaurantsScreen} />
+      <RestaurantStack.Screen name="RestaurantDetail" component={RestaurantDetail} />
     </RestaurantStack.Navigator>
   );
 };

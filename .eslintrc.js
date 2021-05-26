@@ -6,6 +6,7 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
+    'plugin:prettier/recommended',
     'plugin:react/recommended',
     'airbnb',
     '@react-native-community',
@@ -21,5 +22,13 @@ module.exports = {
   rules: {
     'react/jsx-filename-extension': [1, {extensions: ['.js', '.jsx']}],
     'import/no-extraneous-dependencies': 'off',
+    'import/prefer-default-export': 'off',
+    'comma-dangle': 'off',
+    'prettier/prettier': [
+      'error',
+      {
+        printWidth: 100,
+      },
+    ],
   },
 };
