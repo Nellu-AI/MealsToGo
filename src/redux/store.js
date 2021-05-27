@@ -1,19 +1,20 @@
 import {combineReducers, createStore, applyMiddleware, compose} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
-import watchFetchRestaurants from './sagas/restaurant-saga';
 import restaurantsReducer from './reducers/restaurants-reducer';
+import locationReducer from './reducers/location-reducer';
+import appReducer from './reducers/app-reducer';
 
-const sagaMiddleware = createSagaMiddleware();
+export const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers({
+  app: appReducer,
   restaurants: restaurantsReducer,
+  location: locationReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(sagaMiddleware)));
+export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(sagaMiddleware)));
 
-sagaMiddleware.run(watchFetchRestaurants);
-
-export default store;
+// sagaMiddleware.run(watchAll);

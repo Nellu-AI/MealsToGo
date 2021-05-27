@@ -2,7 +2,8 @@ import React from 'react';
 import {ThemeProvider} from 'styled-components';
 
 import {Provider} from 'react-redux';
-import store from './src/redux/store';
+import {store, sagaMiddleware} from './src/redux/store';
+import {watchAll} from './src/redux/sagas/index';
 
 import {theme} from './src/infrastructure/theme';
 
@@ -11,6 +12,8 @@ import {theme} from './src/infrastructure/theme';
 import {AuthContextProvider} from './src/services/authentication/auth.context';
 
 import Navigation from './src/infrastructure/navigation/index';
+
+sagaMiddleware.run(watchAll);
 
 const App = () => (
   <Provider store={store}>

@@ -1,10 +1,6 @@
-import {put, takeEvery} from 'redux-saga/effects';
-import {
-  toggleLoading,
-  setRestaurants,
-  setError,
-  FETCH_RESTAURANTS,
-} from '../reducers/restaurants-reducer';
+import {put} from 'redux-saga/effects';
+import {setRestaurants} from '../reducers/restaurants-reducer';
+import {setError, toggleLoading} from '../reducers/app-reducer';
 
 import {
   restaurantsRequest,
@@ -13,7 +9,8 @@ import {
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
-function* getRestaurantsData(action) {
+export function* getRestaurantsData(action) {
+  yield put(setRestaurants([]));
   yield put(toggleLoading(true));
   try {
     yield delay(2000);
@@ -27,8 +24,8 @@ function* getRestaurantsData(action) {
   }
 }
 
-function* watchFetchRestaurants() {
-  yield takeEvery(FETCH_RESTAURANTS, getRestaurantsData);
-}
+// function* watchFetchRestaurants() {
+//   yield takeEvery(FETCH_RESTAURANTS, getRestaurantsData);
+// }
 
-export default watchFetchRestaurants;
+// export default watchFetchRestaurants;

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 
 import MapView from 'react-native-maps';
@@ -7,8 +7,6 @@ import styled from 'styled-components/native';
 import Search from '../components/search.component';
 import MapCallout from '../components/map-callout.component';
 
-import {LocationContext} from '../../../services/location/location.context';
-
 const Map = styled(MapView)`
   height: 100%;
   width: 100%;
@@ -16,7 +14,7 @@ const Map = styled(MapView)`
 
 const MapScreen = ({navigation}) => {
   const {restaurants} = useSelector(state => state.restaurants);
-  const {location} = useContext(LocationContext);
+  const {location} = useSelector(state => state.location);
 
   const [latDelta, setLatDelta] = useState(0);
   const {lat, lng, viewport} = location;

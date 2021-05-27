@@ -1,8 +1,9 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import styled from 'styled-components/native';
 
+import {useSelector, useDispatch} from 'react-redux';
 import {Searchbar} from 'react-native-paper';
-import {LocationContext} from '../../../services/location/location.context';
+import {setKeyword} from '../../../redux/reducers/location-reducer';
 
 const SearchWrapper = styled.View`
   padding: ${props => props.theme.space[3]};
@@ -12,12 +13,17 @@ const SearchWrapper = styled.View`
 `;
 
 const Search = () => {
-  const {keyword, search} = useContext(LocationContext);
+  const dispatch = useDispatch();
+  const {keyword} = useSelector(state => state.location);
   const [searchKeyword, setSearchKeyword] = useState(keyword);
 
   useEffect(() => {
     setSearchKeyword(keyword);
   }, [keyword]);
+
+  const onSearch = useCallback(() => {
+    dispatch(setKeyword(searchKeyword));
+  }, [dispatch, searchKeyword]);
 
   return (
     <SearchWrapper>
@@ -26,9 +32,7 @@ const Search = () => {
         icon="map"
         value={searchKeyword}
         onChangeText={setSearchKeyword}
-        onSubmitEditing={() => {
-          search(searchKeyword); // либо useCallback, либо метод классового компон.
-        }}
+        onSubmitEditing={onSearch}
       />
     </SearchWrapper>
   );
