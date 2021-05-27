@@ -1,13 +1,17 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+
 import styled from 'styled-components/native';
 import {FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 
+import {fetchRestaurants} from '../../../redux/reducers/restaurants-reducer';
+
 import RestaurantInfoCard from '../components/restaurant-info/restaurant-card';
 import {SafeArea} from '../../../components/safeArea/safe-area.component';
 import Search from '../components/search/search';
-import {RestaurantsContext} from '../../../services/restaurants/restaurants.context';
 import {FavouritesContext} from '../../../services/favourites/favourites.context';
+import {LocationContext} from '../../../services/location/location.context';
 
 import {FavouritesBar} from '../components/favourites-bar/favourites-bar';
 
@@ -21,10 +25,19 @@ const Loading = styled(ActivityIndicator)`
   margin-left: -25px;
 `;
 export const RestaurantsScreen = ({navigation}) => {
-  const {isLoading, error, restaurants} = useContext(RestaurantsContext);
+  const {location} = useContext(LocationContext);
+  const {isLoading, error, restaurants} = useSelector(state => state.restaurants);
+  const dispatch = useDispatch();
   const {favourites} = useContext(FavouritesContext);
 
   const [isToggled, setIsToggled] = useState(false);
+
+  useEffect(() => {
+    if (location) {
+      const locationString = `${location.lat},${location.lng}`;
+      dispatch(fetchRestaurants(locationString));
+    }
+  }, [dispatch, location]);
 
   const handleToggleFav = () => {
     setIsToggled(!isToggled);
