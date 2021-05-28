@@ -1,12 +1,12 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
+
 import MapView from 'react-native-maps';
 import styled from 'styled-components/native';
 
 import Search from '../components/search.component';
 import MapCallout from '../components/map-callout.component';
-
-import {RestaurantsContext} from '../../../services/restaurants/restaurants.context';
-import {LocationContext} from '../../../services/location/location.context';
+import {Loader} from '../../../components/loader/loader.component';
 
 const Map = styled(MapView)`
   height: 100%;
@@ -14,8 +14,9 @@ const Map = styled(MapView)`
 `;
 
 const MapScreen = ({navigation}) => {
-  const {restaurants} = useContext(RestaurantsContext);
-  const {location} = useContext(LocationContext);
+  const {list} = useSelector(state => state.restaurants);
+  const {location} = useSelector(state => state.location);
+  const {isLoading} = useSelector(state => state.app);
 
   const [latDelta, setLatDelta] = useState(0);
   const {lat, lng, viewport} = location;
@@ -31,6 +32,7 @@ const MapScreen = ({navigation}) => {
   return (
     <>
       <Search />
+      {isLoading && <Loader />}
       <Map
         region={{
           latitude: lat,
@@ -38,7 +40,7 @@ const MapScreen = ({navigation}) => {
           latitudeDelta: latDelta,
           longitudeDelta: 0.02,
         }}>
-        {restaurants.map(restaurant => {
+        {list.map(restaurant => {
           return (
             <MapView.Marker
               key={restaurant.name}

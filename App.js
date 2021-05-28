@@ -1,20 +1,21 @@
 import React from 'react';
 import {ThemeProvider} from 'styled-components';
 
+import {Provider} from 'react-redux';
+import {store} from './src/redux/store';
+
 import {theme} from './src/infrastructure/theme';
 
 // statusBar.currentHeight - for Android
 
-import {AuthContextProvider} from './src/services/authentication/auth.context';
-
 import Navigation from './src/infrastructure/navigation/index';
 
 const App = () => (
-  <ThemeProvider theme={theme}>
-    <AuthContextProvider>
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
       <Navigation />
-    </AuthContextProvider>
-  </ThemeProvider>
+    </ThemeProvider>
+  </Provider>
 );
 
 export default App;

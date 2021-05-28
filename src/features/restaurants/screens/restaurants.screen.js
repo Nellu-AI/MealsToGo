@@ -1,30 +1,38 @@
-import React, {useContext, useState} from 'react';
-import styled from 'styled-components/native';
+import React, {useState, useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+
 import {FlatList, StyleSheet, TouchableOpacity} from 'react-native';
-import {ActivityIndicator} from 'react-native-paper';
+
+import {fetchRestaurants} from '../../../redux/reducers/restaurants-reducer';
+import {updateLocation} from '../../../redux/reducers/location-reducer';
 
 import RestaurantInfoCard from '../components/restaurant-info/restaurant-card';
 import {SafeArea} from '../../../components/safeArea/safe-area.component';
 import Search from '../components/search/search';
-import {RestaurantsContext} from '../../../services/restaurants/restaurants.context';
-import {FavouritesContext} from '../../../services/favourites/favourites.context';
 
 import {FavouritesBar} from '../components/favourites-bar/favourites-bar';
+import {Loader} from '../../../components/loader/loader.component';
 
-const LoaderWrapper = styled.View`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-`;
-
-const Loading = styled(ActivityIndicator)`
-  margin-left: -25px;
-`;
 export const RestaurantsScreen = ({navigation}) => {
-  const {isLoading, error, restaurants} = useContext(RestaurantsContext);
-  const {favourites} = useContext(FavouritesContext);
+  const {location, keyword} = useSelector(state => state.location);
+  const {list} = useSelector(state => state.restaurants);
+  const {isLoading} = useSelector(state => state.app);
+  const dispatch = useDispatch();
+
+  const favourites = useSelector(state => state.favourites.list);
 
   const [isToggled, setIsToggled] = useState(false);
+
+  useEffect(() => {
+    if (location) {
+      const locationString = `${location.lat},${location.lng}`;
+      dispatch(fetchRestaurants(locationString));
+    }
+  }, [dispatch, location]);
+
+  useEffect(() => {
+    dispatch(updateLocation(keyword));
+  }, [dispatch, keyword]);
 
   const handleToggleFav = () => {
     setIsToggled(!isToggled);
@@ -32,18 +40,14 @@ export const RestaurantsScreen = ({navigation}) => {
 
   return (
     <SafeArea>
-      {isLoading && (
-        <LoaderWrapper>
-          <Loading animating={true} color="#2182BD" size={50} />
-        </LoaderWrapper>
-      )}
+      {isLoading && <Loader />}
 
       <Search onFavouritesToggle={handleToggleFav} isFavouritesToggled={isToggled} />
 
       {isToggled && <FavouritesBar favourites={favourites} onNavigate={navigation.navigate} />}
 
       <FlatList
-        data={restaurants}
+        data={list}
         renderItem={({item}) => (
           <TouchableOpacity
             onPress={() => navigation.navigate('RestaurantDetail', {restaurant: item})}>

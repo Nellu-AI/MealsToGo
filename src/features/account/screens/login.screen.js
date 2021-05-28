@@ -1,8 +1,11 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import {ActivityIndicator, Colors} from 'react-native-paper';
+import {useDispatch, useSelector} from 'react-redux';
+
 import {Spacer} from '../../../components/spacer/spacerUpgrade.component';
 import {Text} from '../../../components/typography/text.component';
-import {AuthContext} from '../../../services/authentication/auth.context';
+import {onLogin} from '../../../redux/reducers/app-reducer';
+
 import {
   AccountBackground,
   AccountContainer,
@@ -14,10 +17,11 @@ import {
 } from '../screen-styles/styles';
 
 const LoginScreen = ({navigation}) => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const {onLogin, error, isLoading} = useContext(AuthContext);
+  const {isLoading, error} = useSelector(state => state.app);
 
   return (
     <AccountBackground>
@@ -54,7 +58,7 @@ const LoginScreen = ({navigation}) => {
           <AuthButton
             icon="lock-open-outline"
             mode="contained"
-            onPress={() => onLogin(email, password)}>
+            onPress={() => dispatch(onLogin(email, password))}>
             Login
           </AuthButton>
         ) : (
