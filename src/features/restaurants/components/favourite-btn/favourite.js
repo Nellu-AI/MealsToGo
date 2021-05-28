@@ -1,9 +1,9 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
-
-import {FavouritesContext} from '../../../../services/favourites/favourites.context';
+import {useSelector, useDispatch} from 'react-redux';
+import {addRestaurant, removeRestaurant} from '../../../../redux/reducers/favourites-reducer';
 
 const FavouriteButton = styled(TouchableOpacity)`
   position: absolute;
@@ -13,14 +13,15 @@ const FavouriteButton = styled(TouchableOpacity)`
 `;
 
 export const Favourite = ({restaurant}) => {
-  const {favourites, addToFavourites, removeFromFavourites} = useContext(FavouritesContext);
+  const dispatch = useDispatch();
+  const {list} = useSelector(state => state.favourites);
 
-  const isFavourite = favourites.find(r => r.placeId === restaurant.placeId);
+  const isFavourite = list.find(r => r.placeId === restaurant.placeId);
 
   return (
     <FavouriteButton
       onPress={() =>
-        !isFavourite ? addToFavourites(restaurant) : removeFromFavourites(restaurant)
+        !isFavourite ? dispatch(addRestaurant(restaurant)) : dispatch(removeRestaurant(restaurant))
       }>
       <Icon
         name={isFavourite ? 'heart' : 'heart-o'}

@@ -3,7 +3,7 @@ const SET_RESTAURANTS = 'SET_RESTAURANTS';
 export const FETCH_RESTAURANTS = 'FETCH_RESTAURANTS';
 
 const initialState = {
-  restaurants: [],
+  list: [],
 };
 
 // Action creators
@@ -25,7 +25,7 @@ const restaurantsReducer = (state = initialState, action) => {
     case SET_RESTAURANTS:
       return {
         ...state,
-        restaurants: action.restaurants,
+        list: action.restaurants,
       };
     default:
       return state;

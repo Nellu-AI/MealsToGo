@@ -1,6 +1,6 @@
 import {put} from 'redux-saga/effects';
 import {setRestaurants} from '../reducers/restaurants-reducer';
-import {setError, toggleLoading} from '../reducers/app-reducer';
+import {setError, setLoading} from '../reducers/app-reducer';
 
 import {
   restaurantsRequest,
@@ -11,7 +11,7 @@ const delay = ms => new Promise(res => setTimeout(res, ms));
 
 export function* getRestaurantsData(action) {
   yield put(setRestaurants([]));
-  yield put(toggleLoading(true));
+  yield put(setLoading(true));
   try {
     yield delay(2000);
     const response = yield restaurantsRequest(action.location);
@@ -20,6 +20,6 @@ export function* getRestaurantsData(action) {
   } catch (error) {
     yield put(setError(error));
   } finally {
-    yield put(toggleLoading(false));
+    yield put(setLoading(false));
   }
 }

@@ -14,7 +14,7 @@ const Map = styled(MapView)`
 `;
 
 const MapScreen = ({navigation}) => {
-  const {restaurants} = useSelector(state => state.restaurants);
+  const {list} = useSelector(state => state.restaurants);
   const {location} = useSelector(state => state.location);
   const {isLoading} = useSelector(state => state.app);
 
@@ -40,7 +40,7 @@ const MapScreen = ({navigation}) => {
           latitudeDelta: latDelta,
           longitudeDelta: 0.02,
         }}>
-        {restaurants.map(restaurant => {
+        {list.map(restaurant => {
           return (
             <MapView.Marker
               key={restaurant.name}

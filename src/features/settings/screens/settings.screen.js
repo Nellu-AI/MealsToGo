@@ -1,13 +1,15 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, {useContext} from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 
 import {List, Avatar} from 'react-native-paper';
 
+import {useSelector, useDispatch} from 'react-redux';
 import {SafeArea} from '../../../components/safeArea/safe-area.component';
-import {AuthContext} from '../../../services/authentication/auth.context';
+
 import {Text} from '../../../components/typography/text.component';
 import {Spacer} from '../../../components/spacer/spacerUpgrade.component';
+import {onLogout} from '../../../redux/reducers/app-reducer';
 
 const SettingsItem = styled(List.Item)`
   padding: ${props => props.theme.space[3]};
@@ -17,7 +19,9 @@ const AvatarContainer = styled.View`
 `;
 
 export const SettingsScreen = ({navigation}) => {
-  const {onLogout, user} = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const {user} = useSelector(state => state.app);
+  const logOut = () => dispatch(onLogout());
   return (
     <SafeArea>
       <AvatarContainer>
@@ -37,7 +41,7 @@ export const SettingsScreen = ({navigation}) => {
         <SettingsItem
           title="Logout"
           left={props => <List.Icon {...props} color="black" icon="door" />}
-          onPress={onLogout}
+          onPress={logOut}
         />
       </List.Section>
     </SafeArea>

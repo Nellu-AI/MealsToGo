@@ -1,9 +1,8 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 import {TouchableOpacity, FlatList} from 'react-native';
 
-import {FavouritesContext} from '../../../services/favourites/favourites.context';
-
+import {useSelector} from 'react-redux';
 import {SafeArea} from '../../../components/safeArea/safe-area.component';
 import {Text} from '../../../components/typography/text.component';
 import {Spacer} from '../../../components/spacer/spacer.component';
@@ -22,7 +21,7 @@ const RestaurantList = styled(FlatList).attrs({
 })``;
 
 export const FavouritesScreen = ({navigation}) => {
-  const {favourites} = useContext(FavouritesContext);
+  const favourites = useSelector(state => state.favourites.list);
 
   return favourites.length ? (
     <SafeArea>

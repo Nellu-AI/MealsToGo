@@ -1,8 +1,11 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import {ActivityIndicator, Colors} from 'react-native-paper';
+import {useDispatch, useSelector} from 'react-redux';
+
 import {Spacer} from '../../../components/spacer/spacerUpgrade.component';
 import {Text} from '../../../components/typography/text.component';
-import {AuthContext} from '../../../services/authentication/auth.context';
+import {onRegister} from '../../../redux/reducers/app-reducer';
+
 import {
   AccountBackground,
   AccountContainer,
@@ -14,11 +17,12 @@ import {
 } from '../screen-styles/styles';
 
 const RegisterScreen = ({navigation}) => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatedPassword, setRepeatedPassword] = useState('');
 
-  const {onRegister, error, isLoading} = useContext(AuthContext);
+  const {error, isLoading} = useSelector(state => state.app);
 
   return (
     <AccountBackground>
@@ -66,7 +70,7 @@ const RegisterScreen = ({navigation}) => {
           <AuthButton
             icon="email"
             mode="contained"
-            onPress={() => onRegister(email, password, repeatedPassword)}>
+            onPress={() => dispatch(onRegister(email, password, repeatedPassword))}>
             Register
           </AuthButton>
         ) : (
