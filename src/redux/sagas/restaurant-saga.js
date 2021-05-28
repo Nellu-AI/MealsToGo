@@ -23,9 +23,3 @@ export function* getRestaurantsData(action) {
     yield put(toggleLoading(false));
   }
 }
-
-// function* watchFetchRestaurants() {
-//   yield takeEvery(FETCH_RESTAURANTS, getRestaurantsData);
-// }
-
-// export default watchFetchRestaurants;

@@ -6,6 +6,7 @@ import styled from 'styled-components/native';
 
 import Search from '../components/search.component';
 import MapCallout from '../components/map-callout.component';
+import {Loader} from '../../../components/loader/loader.component';
 
 const Map = styled(MapView)`
   height: 100%;
@@ -15,6 +16,7 @@ const Map = styled(MapView)`
 const MapScreen = ({navigation}) => {
   const {restaurants} = useSelector(state => state.restaurants);
   const {location} = useSelector(state => state.location);
+  const {isLoading} = useSelector(state => state.app);
 
   const [latDelta, setLatDelta] = useState(0);
   const {lat, lng, viewport} = location;
@@ -30,6 +32,7 @@ const MapScreen = ({navigation}) => {
   return (
     <>
       <Search />
+      {isLoading && <Loader />}
       <Map
         region={{
           latitude: lat,

@@ -1,9 +1,7 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
-import styled from 'styled-components/native';
 import {FlatList, StyleSheet, TouchableOpacity} from 'react-native';
-import {ActivityIndicator} from 'react-native-paper';
 
 import {fetchRestaurants} from '../../../redux/reducers/restaurants-reducer';
 import {updateLocation} from '../../../redux/reducers/location-reducer';
@@ -14,16 +12,8 @@ import Search from '../components/search/search';
 import {FavouritesContext} from '../../../services/favourites/favourites.context';
 
 import {FavouritesBar} from '../components/favourites-bar/favourites-bar';
+import {Loader} from '../../../components/loader/loader.component';
 
-const LoaderWrapper = styled.View`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-`;
-
-const Loading = styled(ActivityIndicator)`
-  margin-left: -25px;
-`;
 export const RestaurantsScreen = ({navigation}) => {
   const {location, keyword} = useSelector(state => state.location);
   const {restaurants} = useSelector(state => state.restaurants);
@@ -51,11 +41,7 @@ export const RestaurantsScreen = ({navigation}) => {
 
   return (
     <SafeArea>
-      {isLoading && (
-        <LoaderWrapper>
-          <Loading animating={true} color="#2182BD" size={50} />
-        </LoaderWrapper>
-      )}
+      {isLoading && <Loader />}
 
       <Search onFavouritesToggle={handleToggleFav} isFavouritesToggled={isToggled} />
 
